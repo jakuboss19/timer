@@ -2,6 +2,7 @@
 import tkinter as tk
 import time
 import os
+from tkinter import simpledialog
 
 class Stopwatch:
     def __init__(self, master):
@@ -77,8 +78,10 @@ class Stopwatch:
 
     def save_time(self):
         if self.elapsed_time > 0:
+            note = simpledialog.askstring("Poznámka", "Zadejte poznámku k uloženému času:")  # Pridani poznamky
             formatted_time = self.format_time(self.elapsed_time)
-            self.saved_times.insert(0, formatted_time)  
+            saved_entry = f"{formatted_time} - {note}" if note else formatted_time
+            self.saved_times.insert(0, saved_entry)  
             self.update_saved_times_display()
             self.save_times_to_file()
 
