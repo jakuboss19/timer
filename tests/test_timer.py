@@ -1,5 +1,5 @@
 import unittest
-from timer import Stopwatch
+from timer_with_memory.timer import Stopwatch
 import tkinter as tk
 import os
 
