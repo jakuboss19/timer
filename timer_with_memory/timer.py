@@ -20,7 +20,7 @@ class Stopwatch:
 
         
         button_frame = tk.Frame(master, bg="black")
-        button_frame.pack(pady=10)  # Centrovaný rámec s tlačítky
+        button_frame.pack(pady=10)  # Centerd frame with buttons
 
         # Setting style for buttons
         self.start_button = tk.Button(button_frame, text="Start", command=self.start, fg="white", bg="black")
