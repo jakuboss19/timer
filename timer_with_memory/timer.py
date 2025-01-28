@@ -8,21 +8,21 @@ class Stopwatch:
     def __init__(self, master):
         self.master = master
         self.master.title("Stopky")
-        self.master.configure(bg="black")  # Nastavení černého pozadí hlavního okna
+        self.master.configure(bg="black")  
 
         self.is_running = False
         self.start_time = 0
         self.elapsed_time = 0
 
-        # Nastavení stylu labelu pro čas
+        # Label setting for clock
         self.time_label = tk.Label(master, text="00:00:00", font=("Helvetica", 48), fg="white", bg="black")
         self.time_label.pack()
 
-        # Vytvoření rámce pro tlačítka, aby byla vedle sebe
+        
         button_frame = tk.Frame(master, bg="black")
         button_frame.pack(pady=10)  # Centrovaný rámec s tlačítky
 
-        # Nastavení stylu tlačítek
+        # Setting style for buttons
         self.start_button = tk.Button(button_frame, text="Start", command=self.start, fg="white", bg="black")
         self.start_button.pack(side="left", padx=5)
 
@@ -35,7 +35,7 @@ class Stopwatch:
         self.save_button = tk.Button(button_frame, text="Uložit čas", command=self.save_time, fg="white", bg="black")
         self.save_button.pack(side="left", padx=5)
 
-        # Vytvoření rámu a canvasu s posuvníkem
+        # Setup for scrollbar
         self.saved_times_frame = tk.Frame(master, bg="black")
         self.saved_times_frame.pack(expand=True, fill='both', padx=10, pady=10)
 
@@ -71,14 +71,14 @@ class Stopwatch:
         self.is_running = False
 
     def reset(self):
-        """Vynuluje časovač a zobrazí 00:00:00."""
+        """Reset timer and set time on 00:00:00."""
         self.is_running = False
         self.elapsed_time = 0
         self.time_label.config(text="00:00:00")
 
     def save_time(self):
         if self.elapsed_time > 0:
-            note = simpledialog.askstring("Poznámka", "Zadejte poznámku k uloženému času:")  # Pridani poznamky
+            note = simpledialog.askstring("Poznámka", "Zadejte poznámku k uloženému času:")  
             formatted_time = self.format_time(self.elapsed_time)
             saved_entry = f"{formatted_time} - {note}" if note else formatted_time
             self.saved_times.insert(0, saved_entry)  
@@ -86,17 +86,16 @@ class Stopwatch:
             self.save_times_to_file()
 
     def delete_time(self, index):
-        """Smaže čas z uložených časů podle indexu."""
+        """Delete saved time"""
         del self.saved_times[index]
         self.update_saved_times_display()
         self.save_times_to_file()
 
     def update_saved_times_display(self):
-        # Vyčistí aktuální labely
         for widget in self.inner_frame.winfo_children():
             widget.destroy()
 
-        # Vytvoří labely a tlačítka pro uložené časy
+        # Create labels and buttons for saved times
         for index, saved_time in enumerate(self.saved_times):
             time_frame = tk.Frame(self.inner_frame, bg="black")
             time_frame.pack(fill="x", pady=2)
@@ -107,7 +106,7 @@ class Stopwatch:
             delete_button = tk.Button(time_frame, text="Smazat", command=lambda idx=index: self.delete_time(idx), fg="white", bg="black")
             delete_button.pack(side="right")
 
-        # Aktualizace oblasti canvasu
+        # Canvas actualization
         self.canvas.configure(scrollregion=self.canvas.bbox('all'))
 
     def save_times_to_file(self):
